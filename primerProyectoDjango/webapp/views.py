@@ -19,12 +19,12 @@ def bienvenido_dicionario(request):
 
 
 def listar_alumnos(request):
-    lista_alumnos = [
+    list_alumnos = [
         {"nombre": "Nombre1", "apellidos":"Apellidos1","dni":"111A"},
         {"nombre": "Nombre2", "apellidos": "Apellidos2", "dni": "111B"},
         {"nombre": "Nombre3", "apellidos": "Apellidos3", "dni": "111C"},
                 ]
-    contexto = {"listado_alumnos":lista_alumnos}
+    contexto = {"listado_alumnos":list_alumnos}
     return render(request, "getion/alumnos.html", contexto)
 
 

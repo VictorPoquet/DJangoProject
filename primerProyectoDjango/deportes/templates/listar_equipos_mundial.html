@@ -7,19 +7,23 @@ table, th, td {
 </style>
 <body>
 
-    <h2>Listar Equipos Mundial</h2>
+    <h2>Listar Equipos Mundial {{titulo}}</h2>
 
-    <form>
+    <form action="listar_equipos_mundial" method="POST">
+        {%csrf_token%}
         <fieldset>
             <legend>Lista Selecciones</legend>
-            <label>Buscar:<input type="text" name="seleccion" list="seleccion" />
-                <datalist id="seleccion">
+            <label>Buscar:<input type="text" name="continente" list="continente" />
+                <datalist id="continente">
                        {% for equipo in listado_equipos%}
-                            <option value ="{{equipo.seleccion}}" ></option>
+                            <option value ="{{equipo.continente}}" ></option>
                        {% endfor %}
                 </datalist>
             </label>
         </fieldset>
+        <input type="hidden" name="tipo" value="filtrar">
+        <input type="hidden" name="titulo_tabla" value="{{titulo_tabla}}">
+        <input type="submit" value="Filtrar">
     </form>
 
     <table style="width:100%">
@@ -41,5 +45,6 @@ table, th, td {
 
     <a href="{% url 'inicio' %}">Inicio</a> <br>
     <a href="{% url 'deportes' %}">Deportes</a> <br>
+    <a href="{% url 'add_new_equipos_deportes' %}">Listar Equipos del Mundial</a> <br>
 </body>
 </html>
