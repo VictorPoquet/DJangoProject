@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<style>
+table, th, td {
+  border:1px solid black;
+}
+</style>
+<body>
+
+    <h2>Listar Equipos Mundial</h2>
+
+    <form>
+        <fieldset>
+            <legend>Lista Selecciones</legend>
+            <label>Buscar:<input type="text" name="seleccion" list="seleccion" />
+                <datalist id="seleccion">
+                       {% for equipo in listado_equipos%}
+                            <option value ="{{equipo.seleccion}}" ></option>
+                       {% endfor %}
+                </datalist>
+            </label>
+        </fieldset>
+    </form>
+
+    <table style="width:100%">
+      <tr>
+        <th>Seleccion </th>
+        <th>Continente </th>
+        <th>Nº Munfiales Ganados</th>
+      </tr>
+      {% for equipo in listado_equipos%}
+          <tr>
+            <td>{{equipo.seleccion}}</td>
+            <td>{{equipo.continente}}</td>
+            <td>{{equipo.num_mundiales}}</td>
+          </tr>
+      {% endfor %}
+
+
+    </table>
+
+    <a href="{% url 'inicio' %}">Inicio</a> <br>
+    <a href="{% url 'deportes' %}">Deportes</a> <br>
+</body>
+</html>
