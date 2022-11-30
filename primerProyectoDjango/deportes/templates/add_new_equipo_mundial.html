@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ADD NEW EQUIPO MUNDIAL</title>
+</head>
+<body>
+    <form action="listar_equipos_mundial" method="POST">
+        {%csrf_token%}
+        <fieldset>
+            <label>Seleccion:<input type="text" name="seleccion" required/></label>
+            <label>Continente:<input type="text" name="continente" required/></label>
+            <label>Num. Mundiales Ganados :<input type="number" name="num_mundial" required/></label>
+        </fieldset>
+        <input type="hidden" name="tipo" value="add">
+        <input type="submit" value="Add">
+    </form>
+</body>
+</html>
