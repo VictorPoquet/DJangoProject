@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Client</title>
+</head>
+<body>
+    <h1>Añadir cliente</h1>
+    <form action="add" method="POST">
+        {%csrf_token%}
+         <!--   <label>nombre:<input type="text" name="nombre" required/></label>
+            <label>apellidos:<input type="text" name="apellidos" required/></label>
+            <label>dni :<input type="text" name="dni" required/></label>
+            <label>email :<input type="email" name="email" required/></label>
+            <input type="submit" value="Add_client">-->
+        <table>
+            {{cliente_from}}
+        </table>
+        <input type="submit" value="Add_client">
+    </form>
+    <h1 style="color:green">{{msg}}</h1>
+
+</body>
+</html>

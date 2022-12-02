@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+        <form action="listar_equipos_mundial" method="POST">
+        {%csrf_token%}
+        <fieldset>
+            <label>Nombre:<input type="text" name="nombre" required/></label>
+            <label>Equipo:<input type="text" name="equipo" required/></label>
+            <label>Edad:<input type="text" name="edad" required/></label>
+            <label>Nacionalidad:<input type="text" name="nacionalidad" required/></label>
+            <label>Posicion:<input type="text" name="posicion" required/></label>
+            <label>Parametros:<input type="text" name="parametros" required/></label>
+        </fieldset>
+        <input type="hidden" name="tipo" value="guardar">
+        <input type="submit" value="Guardar">
+    </form>
+</body>
+</html>

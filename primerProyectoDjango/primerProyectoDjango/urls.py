@@ -15,20 +15,34 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+
+from clientes.views import add_new_client, delete_client_template, delete_client
 from webapp.views import bienvenido, bienvenido_template, bienvenido_dicionario, listar_alumnos, adios
-from deportes.views import deportes, listar_equipos_mundial, add_new_equipos_mundial
+from deportes.views import deportes, listar_equipos_mundial, add_new_equipos_mundial, jugadores, add_jugadores, \
+    del_jugadores
 
 urlpatterns = [
-    #APP WEBAPP
+    # APP WEBAPP
     path('admin/', admin.site.urls),
     path('wellcome/', bienvenido),
-    path('wellcome_template/', bienvenido_template, name = "inicio"),
+    path('wellcome_template/', bienvenido_template, name="inicio"),
     path('wellcome_dicionario/', bienvenido_dicionario),
     path('adios/', adios),
     path('alumnos/listar_alumnos', listar_alumnos, name="listado_alumnos"),
 
-    #APP DEPORTES
+    # APP DEPORTES
     path('deportes/', deportes, name="deportes"),
     path('deportes/listar_equipos_mundial', listar_equipos_mundial, name="listar_equipos_deportes"),
     path('deportes/add_new_equipos_mundial', add_new_equipos_mundial, name="add_new_equipos_deportes"),
+    path('deportes/jugador', jugadores, name="jugador"),
+    path('deportes/jugaodr/add', add_jugadores, name="jugador-add"),
+    path('deportes/jugaodr/del', del_jugadores, name="jugador-del"),
+
+    # APP CLIENTES COCHES
+    # path('clientes', list_client, name="list_clientes"),
+    path('clientes/add', add_new_client, name="add_clientes"),
+    path('clientes/delete_template', delete_client_template, name="client_del_template"),
+    path('clientes/delete/<int:id>', delete_client, name="client_del"),
+
+
 ]
