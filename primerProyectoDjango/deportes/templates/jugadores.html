@@ -10,7 +10,7 @@
     </style>
 </head>
 <body>
-<form action="{% url 'client_del_template' %}" method="post">
+<form action="{% url 'jugador' %}" method="post">
         {%csrf_token%}
             <fieldset>
             <legend>Lista Selecciones</legend>
@@ -35,7 +35,7 @@
                        {% endfor %}
                 </datalist>
             </label><br>
-
+            <input type="hidden" name="tipo" value="filtrar">
             <input type="submit" value="Filtrar">
         </fieldset>
 

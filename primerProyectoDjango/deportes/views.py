@@ -77,28 +77,63 @@ def listar_equipos_mundial(request):
 
 
 # PAGINA DE JUGADORES
+
+def save_new_jugador(request):
+    nom = request.POST['nombre']
+    equi = request.POST['equipo']
+    edad = request.POST['edad']
+    nacio = request.POST['nacionalidad']
+    pos = request.POST['posicion']
+    new_ju = Jugador(nombre=nom, equipo=equi, edad=edad, nacionalidad=nacio, posicion=pos)
+    new_ju.save()
+
+
+def update_jugador(request):
+    id = request.POST['id']
+    nom = request.POST['nombre']
+    equi = request.POST['equipo']
+    edad = request.POST['edad']
+    nacio = request.POST['nacionalidad']
+    pos = request.POST['posicion']
+
+    edit_ju = Jugador.objects.get(pk=id)
+    edit_ju.nombre = nom
+    edit_ju.equipo = equi
+    edit_ju.edad = edad
+    edit_ju.nacionalidad = nacio
+    edit_ju.posicion = pos
+    edit_ju.save()
+
+
+def filter_jugador(request):
+    list_all = Jugador.objects.all()
+    nacionalidad = request.POST['nacionalidad']
+    if nacionalidad:
+        print("nacionalidad: ", nacionalidad)
+        list_all = list(filter(lambda jugador: jugador.nacionalidad == nacionalidad, list_all))
+    posicion = request.POST['posicion']
+    if posicion:
+        print("posicion: ", posicion)
+        list_all = list(filter(lambda jugador: jugador.posicion == posicion, list_all))
+    equipo = request.POST['equipo']
+    if equipo:
+        print("equipo: ", equipo)
+        list_all = list(filter(lambda jugador: jugador.equipo == equipo, list_all))
+    return list_all
+
+
 def jugadores(request):
+    jugadores_list = Jugador.objects.all()
     if request.method == 'POST':
-        nom = request.POST['nombre']
-        equi = request.POST['equipo']
-        edad = request.POST['edad']
-        nacio = request.POST['nacionalidad']
-        pos = request.POST['posicion']
         if request.POST['tipo'] == 'add':
-            new_ju = Jugador(nombre=nom, equipo=equi, edad=edad, nacionalidad=nacio, posicion=pos)
-            new_ju.save()
+            save_new_jugador(request)
             return redirect("jugador")
         elif request.POST['tipo'] == 'actualizar':
-            id = request.POST['id']
-            edit_ju = Jugador.objects.get(pk=id)
-            edit_ju.nombre = nom
-            edit_ju.equipo = equi
-            edit_ju.edad = edad
-            edit_ju.nacionalidad = nacio
-            edit_ju.posicion = pos
-            edit_ju.save()
+            update_jugador(request)
             return redirect("jugador")
-    jugadores_list = Jugador.objects.all()
+        elif request.POST['tipo'] == 'filtrar':
+            jugadores_list = filter_jugador(request)
+
     print(jugadores_list)
     context = {"jugadores": jugadores_list}
     return render(request, "jugadores.html", context)
