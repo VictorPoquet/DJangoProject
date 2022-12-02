@@ -10,15 +10,40 @@
     </style>
 </head>
 <body>
-    <form action="{% url 'client_del_template' %}" method="post">
+<form action="{% url 'client_del_template' %}" method="post">
         {%csrf_token%}
-        <label>Posicion: <input type="text" name="posicion" required/></label>
-        <label>Nacionalidad: <input type="text" name="nacionalidad" required/></label>
-        <label>Equipo: <input type="text" name="equipo" required/></label>
-        <input type="submit" value="Filtrar">
+            <fieldset>
+            <legend>Lista Selecciones</legend>
+            <label>Posiciones:<input type="text" name="posicion" list="posicion" />
+                <datalist id="posicion">
+                       {% for jugador in jugadores%}
+                            <option value ="{{jugador.posicion}}" ></option>
+                       {% endfor %}
+                </datalist>
+            </label>
+            <label>Nacionalidades:<input type="text" name="nacionalidad" list="nacionalidad" />
+                <datalist id="nacionalidad">
+                       {% for jugador in jugadores%}
+                            <option value ="{{jugador.nacionalidad}}" ></option>
+                       {% endfor %}
+                </datalist>
+            </label>
+            <label>Equipos:<input type="text" name="equipo" list="equipo" />
+                <datalist id="equipo">
+                       {% for jugador in jugadores%}
+                            <option value ="{{jugador.equipo}}" ></option>
+                       {% endfor %}
+                </datalist>
+            </label><br>
+
+            <input type="submit" value="Filtrar">
+        </fieldset>
+
     </form>
+
     <table>
         <tr>
+            <th>ID</th>
             <th>Nombre</th>
             <th>Equipo</th>
             <th>Edad</th>
@@ -26,16 +51,21 @@
             <th>Posicion</th>
             <th>Parametros</th>
         </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td><input type="submit" value="Eliminar"><br>
-            <input type="submit" value="Actualizar"></td>
-        </tr>
+     {% for jugador in jugadores%}
+          <tr>
+            <td>{{jugador.id}}</td>
+            <td>{{jugador.nombre}}</td>
+            <td>{{jugador.equipo}}</td>
+            <td>{{jugador.edad}}</td>
+            <td>{{jugador.nacionalidad}}</td>
+            <td>{{jugador.posicion}}</td>
+            <td>
+                <a href="jugador/del/{{ jugador.id }}"><input type="submit" value="Eliminar"></a><br>
+                <a href="jugador/actualizar/{{ jugador.id }}"><input type="submit" value="Actualizar"></a><br>
+            </td>
+          </tr>
+      {% endfor %}
     </table>
-    <input type="submit" value="Nuevo">
+    <a href="jugador/add"><input type="submit" value="Nuevo"></a>
 </body>
 </html>

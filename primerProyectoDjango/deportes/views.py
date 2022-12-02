@@ -1,5 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
+
+from deportes.models import Jugador
 
 
 # PAGINA DEPORTES.HTML genera datos base deportes
@@ -71,19 +73,51 @@ def listar_equipos_mundial(request):
     listado_equipos = lista_tabla_equipos(request, continente_param, new_equipo)
     contexto = {"listado_equipos": listado_equipos, "titulo": titulo_tabla}
 
-    return render(request, "listar_equipos_mundial.html", contexto)
+    return render(request, "l", contexto)
 
 
 # PAGINA DE JUGADORES
 def jugadores(request):
-    return render(request, "jugadores.html")
+    if request.method == 'POST':
+        nom = request.POST['nombre']
+        equi = request.POST['equipo']
+        edad = request.POST['edad']
+        nacio = request.POST['nacionalidad']
+        pos = request.POST['posicion']
+        if request.POST['tipo'] == 'add':
+            new_ju = Jugador(nombre=nom, equipo=equi, edad=edad, nacionalidad=nacio, posicion=pos)
+            new_ju.save()
+            return redirect("jugador")
+        elif request.POST['tipo'] == 'actualizar':
+            id = request.POST['id']
+            edit_ju = Jugador.objects.get(pk=id)
+            edit_ju.nombre = nom
+            edit_ju.equipo = equi
+            edit_ju.edad = edad
+            edit_ju.nacionalidad = nacio
+            edit_ju.posicion = pos
+            edit_ju.save()
+            return redirect("jugador")
+    jugadores_list = Jugador.objects.all()
+    print(jugadores_list)
+    context = {"jugadores": jugadores_list}
+    return render(request, "jugadores.html", context)
 
 
 def add_jugadores(request):
-    return render(request, "add_del_jugadores.html")
+    context = {"tipo": "add"}
+    return render(request, "add_update_jugador.html", context)
 
 
-def del_jugadores(request):
-    if request.method == 'POST':
-        request
-    return render(request, "add_del_jugadores.html")
+def del_jugadores(request, id):
+    jugador = Jugador.objects.get(pk=id)
+    print(f"Jugador a eliminar {id}")
+    jugador.delete()
+    return redirect("jugador")
+
+
+def actualizar_jugadores(request, id):
+    jugador = Jugador.objects.get(pk=id)
+    print(f"Jugador a actualizar {id}")
+    context = {"j": jugador, "tipo": "actualizar"}
+    return render(request, "add_update_jugador.html", context)

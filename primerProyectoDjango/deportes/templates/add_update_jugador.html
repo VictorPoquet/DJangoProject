@@ -5,18 +5,16 @@
     <title>Title</title>
 </head>
 <body>
-        <form action="listar_equipos_mundial" method="POST">
-        {%csrf_token%}
-        <fieldset>
-            <label>Nombre:<input type="text" name="nombre" required/></label>
-            <label>Equipo:<input type="text" name="equipo" required/></label>
-            <label>Edad:<input type="text" name="edad" required/></label>
-            <label>Nacionalidad:<input type="text" name="nacionalidad" required/></label>
-            <label>Posicion:<input type="text" name="posicion" required/></label>
-            <label>Parametros:<input type="text" name="parametros" required/></label>
-        </fieldset>
-        <input type="hidden" name="tipo" value="guardar">
-        <input type="submit" value="Guardar">
-    </form>
+<form action="{%url 'jugador' %}" method="POST">
+    {%csrf_token%}
+    <label>Nombre:<input type="text" name="nombre" value="{{j.nombre}}" required/></label><br>
+    <label>Equipo:<input type="text" name="equipo" value="{{j.equipo}}" required/></label><br>
+    <label>Edad:<input type="text" name="edad" value="{{j.edad}}" required/></label><br>
+    <label>Nacionalidad:<input type="text" name="nacionalidad" value="{{j.nacionalidad}}" required/></label><br>
+    <label>Posicion:<input type="text" name="posicion" value="{{j.posicion}}" required/></label><br>
+    <input type="hidden" name="id" value="{{j.id}}">
+    <input type="hidden" name="tipo" value="{{tipo}}">
+    <input type="submit" value="Guardar">
+</form>
 </body>
 </html>

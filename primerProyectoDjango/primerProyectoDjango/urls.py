@@ -19,7 +19,7 @@ from django.urls import path
 from clientes.views import add_new_client, delete_client_template, delete_client
 from webapp.views import bienvenido, bienvenido_template, bienvenido_dicionario, listar_alumnos, adios
 from deportes.views import deportes, listar_equipos_mundial, add_new_equipos_mundial, jugadores, add_jugadores, \
-    del_jugadores
+    del_jugadores, actualizar_jugadores
 
 urlpatterns = [
     # APP WEBAPP
@@ -35,8 +35,9 @@ urlpatterns = [
     path('deportes/listar_equipos_mundial', listar_equipos_mundial, name="listar_equipos_deportes"),
     path('deportes/add_new_equipos_mundial', add_new_equipos_mundial, name="add_new_equipos_deportes"),
     path('deportes/jugador', jugadores, name="jugador"),
-    path('deportes/jugaodr/add', add_jugadores, name="jugador-add"),
-    path('deportes/jugaodr/del', del_jugadores, name="jugador-del"),
+    path('deportes/jugador/add', add_jugadores, name="jugador-add"),
+    path('deportes/jugador/del/<int:id>', del_jugadores, name="jugador-del"),
+    path('deportes/jugador/actualizar/<int:id>', actualizar_jugadores, name="jugador-actualizar"),
 
     # APP CLIENTES COCHES
     # path('clientes', list_client, name="list_clientes"),
